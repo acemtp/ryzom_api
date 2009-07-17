@@ -1,0 +1,4 @@
+
+This is the official source tree for the "Ryzom API":http://dev.ryzom.com/projects/ryzom-api/wiki.
+
+"Join the Ryzom Coding Contest":http://dev.ryzom.com/projects/ryzom-api/wiki/Contest and win the first prize of EUR 3000.
