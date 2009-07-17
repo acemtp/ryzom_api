@@ -1,4 +1,6 @@
 
 This is the official source tree for the "Ryzom API":http://dev.ryzom.com/projects/ryzom-api/wiki.
 
+ryzom_api is released under the terms of the GNU Lesser General Public License.
+
 "Join the Ryzom Coding Contest":http://dev.ryzom.com/projects/ryzom-api/wiki/Contest and win the first prize of EUR 3000.
