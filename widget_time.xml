@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+  xmlns:widget="http://www.netvibes.com/ns/">
+  <head>
+    <meta name="author" content="Ryzom Developer Team" />
+    <meta name="description" content="Ryzom Time" />
+
+    <meta name="apiVersion" content="1.2" />
+    <meta name="debugMode" content="false" />
+
+	<meta name="autoRefresh" content="1" />
+
+	<widget:preferences>
+		<preference type="list" name="shardid" label="Server" defaultValue="ani">
+			<option value="ani" label="Aniro" />
+			<option value="ari" label="Arispotle" />
+			<option value="lea" label="Leanon" />
+		</preference>
+    </widget:preferences>
+
+    <title>Ryzom Time</title>
+    <link rel="icon" type="image/png" href="http://www.netvibes.com/favicon.ico" />
+
+    <script type="text/javascript">
+
+		var shards = new Array();
+		shards["ani"]="Aniro";
+		shards["ari"]="Arispotle";
+		shards["lea"]="Leanon";
+
+		var parse = function(txt) {
+			var shardid = widget.getValue('shardid');
+			widget.setBody('<p>'+txt+'</p>');
+			widget.setTitle(shards[shardid]+' Date');
+		};
+
+		widget.onLoad = function() {
+		    var shardid = widget.getValue('shardid');
+			UWA.Data.getText('http://atys.ryzom.com/api/time.php?format=txt&shardid='+shardid, parse);
+		}
+    </script>
+  </head>
+  <body>
+    <p>Loading...</p>
+  </body>
+</html>
