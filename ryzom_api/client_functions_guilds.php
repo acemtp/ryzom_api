@@ -16,19 +16,19 @@
  * along with ryzom_api.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-$includes = array('common', 'time', 'title', 'guild_icon', 'character', 'item_icon', 'banner', 'status', 'guild', 'guilds');
-
-require_once('config.php');
-
-foreach($includes as $include) {
-	if($_SERVER['HTTP_HOST']=='atys.ryzom.com')
-		require_once("server/server_functions_$include.php");
-	else
-		require_once("client_functions_$include.php");
-
-	require_once("functions_$include.php");
+function ryzom_guilds_simplexml($shardid) {
+	$url = ryzom_api_base_url()."guilds.php?shardid=$shardid";
+	$ch = curl_init();
+	curl_setopt($ch, CURLOPT_URL, $url);
+	curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+	curl_setopt($ch, CURLOPT_ENCODING , 'gzip');
+	$output = curl_exec($ch);
+	curl_close($ch);
+	return simplexml_load_string($output);
 }
 
-require_once("functions_render.php");
+function ryzom_guilds_xmlgz($shardid) {
+	return file_get_contents(ryzom_api_base_url()."guilds.php?shardid=$shardid");
+}
 
 ?>

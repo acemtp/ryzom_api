@@ -16,19 +16,4 @@
  * along with ryzom_api.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-$includes = array('common', 'time', 'title', 'guild_icon', 'character', 'item_icon', 'banner', 'status', 'guild', 'guilds');
-
-require_once('config.php');
-
-foreach($includes as $include) {
-	if($_SERVER['HTTP_HOST']=='atys.ryzom.com')
-		require_once("server/server_functions_$include.php");
-	else
-		require_once("client_functions_$include.php");
-
-	require_once("functions_$include.php");
-}
-
-require_once("functions_render.php");
-
 ?>
