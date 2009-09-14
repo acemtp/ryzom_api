@@ -16,12 +16,20 @@
  * along with ryzom_api.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+/**
+ * Verifies $key against guild format and extracts guild id from it.
+ *
+ * @param string $key guild api key
+ * @param integer $gid will contain guild id if key seems to be valid, passed by reference
+ * @return boolean false if key is invalid, true if key seems to be valid
+ */
 function ryzom_guild_valid_key($key, &$gid) {
-	$arr = explode("R", $key);
-	if(sizeof($arr) != 3) return false;
-	if($arr[0] != 'G') return false;
-	$gid = $arr[1];
-	return true;
+	if(preg_match('/^GR(\d+)R([0-9A-F]{8})$/', $key, $matches)){
+		$gid=$matches[1];
+		return true;
+	}else{
+		return false;
+	}
 }
 
 function ryzom_guild_simplexml($key) {

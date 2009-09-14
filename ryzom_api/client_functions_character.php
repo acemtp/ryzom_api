@@ -31,13 +31,25 @@ function ryzom_character_xmlgz($key, $part='') {
 	return file_get_contents(ryzom_api_base_url()."character.php?key=$key".($part!=''?"&part=$part":''));
 }
 
+/**
+ * Verifies $key against character api key format 
+ * and extracts user id, character slot and key type from it.
+ *
+ * @param string $key character api key
+ * @param integer $uid will contain user id if key seems to be valid, passed by reference
+ * @param integer $slot will contain user slot number if key seems to be valid, passed by reference
+ * @param boolean $full if key type is full, this is set to TRUE, passed by reference
+ * @return boolean false if key is invalid, true if key seems to be valid
+ */
 function ryzom_character_valid_key($key, &$uid, &$slot, &$full) {
-	$arr = explode("R", $key);
-	if(sizeof($arr) != 4) return false;
-	$full = ($arr[0]=='F');
-	$uid = $arr[1];
-	$slot = $arr[2];
-	return true;
+	if(preg_match('/^(F|P)R(\d+)R([0-4])R[0-9A-F]{8}$/', $key, $matches)){
+		$full=$matches[1]=='F';
+		$uid=$matches[2];
+		$slot=$matches[3];
+		return true;
+	}else{
+		return false;
+	}
 }
 
 ?>
