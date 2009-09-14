@@ -21,7 +21,13 @@ function ryzom_item_icon_image($sheetid, $c=-1, $q=-1, $s=-1, $sap=-1, $destroye
 }
 
 function ryzom_item_icon_url($sheetid, $c=-1, $q=-1, $s=-1, $sap=-1, $destroyed=false) {
-	return ryzom_api_base_url()."item_icon.php?sheetid=$sheetid&c=$c&q=$q&s=$s&sap=$sap".($destroyed?'&destroyed=1':'');
+	$common=ryzom_api_base_url()."item_icon.php?sheetid=$sheetid&c=$c";
+	if(preg_match('/\.sbrick$/', $sheetid)) {
+		$common.=($q===true ? '&lvl=1' : '').($s!=-1 ? "&txt=".urlencode($s) : '');
+	} else {
+		$common.="&q=$q&s=$s&sap=$sap".($destroyed?'&destroyed=1':'');
+	}
+	return $common;
 }
 
 function ryzom_item_icon_image_from_simplexml($item, $add_text='') {
@@ -32,6 +38,7 @@ function ryzom_item_icon_image_from_simplexml($item, $add_text='') {
 	$text = $item['text'];
 	$text = str_replace('%mfc', '', $text);
 	$text = str_replace("\n", ' ', $text);
+//	$text = htmlentities($text);
 	if($add_text != '') {
 		$text = ($text!='')?"$add_text - $text":$add_text;
 	}
